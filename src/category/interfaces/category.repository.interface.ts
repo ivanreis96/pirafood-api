@@ -5,3 +5,4 @@ export default interface ICategoryRepository{
     get():Promise<Category>;
     update(data: Category): Promise<void>
 }
+// sdasdasdas

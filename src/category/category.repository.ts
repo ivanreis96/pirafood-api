@@ -21,4 +21,11 @@ export class CategoryRepository implements ICategoryRepository {
   async get(): Promise<Category> {
     return await this.categoryModel.findOne();
   }
+  async create(data: Partial<Category>): Promise<Category>{
+    return await this.categoryModel.create({
+      ...data,
+      createdAt:new Date(),
+      updatedAt: new Date,
+    });
+  }
 }

@@ -12,7 +12,7 @@ export class CategoryController {
 
 
     @Post()
-    async createCategory(@Body() input: CreateCategoryUseCaseInput): Promise<CreateCategoryUseCaseOutput>{
+    async createCategory(@Body() input: CreateCategoryUseCaseInput,): Promise<CreateCategoryUseCaseOutput>{
         const useCaseInput = new CreateCategoryUseCaseInput({ ...input})
         return await this.createCategoryUseCase.run(useCaseInput)
     }

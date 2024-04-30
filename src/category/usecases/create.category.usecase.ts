@@ -15,7 +15,7 @@ export default class CreateCategoryUseCase
         async run(input: CreateCategoryUseCaseInput):Promise<CreateCategoryUseCaseOutput>{
             const newCategory = await this.categoryRepository.create(input);
             return new CreateCategoryUseCaseOutput({
-                id:newCategory.id,
+                id:newCategory._id,
                 name:newCategory.name,
                 createdAt:newCategory.createdAt,
                 updatedAt: newCategory.updatedAt,

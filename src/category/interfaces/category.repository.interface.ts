@@ -3,8 +3,8 @@ import CreateCategoryUseCaseInput from "../usecases/dtos/create.category.usecase
 
 
 export default interface ICategoryRepository{
-    create(input: CreateCategoryUseCaseInput);
+    create(data: Partial<Category>): Promise<Category>
+    // create(input: CreateCategoryUseCaseInput);
     get():Promise<Category>;
     update(data: Category): Promise<void>
 }
-// sdasdasdas

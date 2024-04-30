@@ -16,6 +16,10 @@ import { CategoryRepository } from './category.repository';
       provide:CategoryTokens.createCategoryUseCase,
       useClass:CreateCategoryUseCase
     },
+    // {
+    //   provide:CategoryTokens.getCategoryUseCase,
+    //   useClass:getCategoryUseCase
+    // },
     {
       provide:CategoryTokens.categoryRepository,
       useClass:CategoryRepository,

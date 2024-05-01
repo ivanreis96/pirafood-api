@@ -6,6 +6,8 @@ import { Category, CategorySchema } from './schemas/category.schema';
 import CategoryTokens from './category.tokens';
 import CreateCategoryUseCase from './usecases/create.category.usecase';
 import { CategoryRepository } from './category.repository';
+import GetCategoryUsecase from './usecases/get.category.usecase';
+
 
 @Module({
   controllers: [CategoryController],
@@ -16,10 +18,10 @@ import { CategoryRepository } from './category.repository';
       provide:CategoryTokens.createCategoryUseCase,
       useClass:CreateCategoryUseCase
     },
-    // {
-    //   provide:CategoryTokens.getCategoryUseCase,
-    //   useClass:getCategoryUseCase
-    // },
+    {
+      provide:CategoryTokens.getCategoryUseCase,
+      useClass:GetCategoryUsecase
+    },
     {
       provide:CategoryTokens.categoryRepository,
       useClass:CategoryRepository,

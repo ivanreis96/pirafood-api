@@ -1,10 +1,6 @@
 import { Category } from "../schemas/category.schema";
-import CreateCategoryUseCaseInput from "../usecases/dtos/create.category.usecase.input";
-
-
+import GetCategoryUseCaseOutput from "../usecases/dtos/get.category.usecase.output";
 export default interface ICategoryRepository{
     create(data: Partial<Category>): Promise<Category>
-    // create(input: CreateCategoryUseCaseInput);
-    get():Promise<Category>;
-    update(data: Category): Promise<void>
+    find(data?:Partial<Category>):Promise<GetCategoryUseCaseOutput>
 }

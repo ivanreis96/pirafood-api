@@ -3,9 +3,11 @@ import ICategoryRepository from './interfaces/category.repository.interface';
 import { Category } from './schemas/category.schema';
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import { skip } from 'node:test';
+import Find from './usecases/dtos/find.by.filter';
 
 @Injectable()
-export class CategoryRepository implements ICategoryRepository {
+export default class CategoryRepository implements ICategoryRepository {
   constructor(
     @InjectModel(Category.name)
     private readonly categoryModel: Model<Category>,
@@ -18,8 +20,14 @@ export class CategoryRepository implements ICategoryRepository {
     });
   }
 
-  async get(): Promise<Category> {
-    return await this.categoryModel.findOne();
+  async get(): Promise<Find> {
+    let query = this.categoryModel.find()
+    const skipQuery =query.clone()
+    const [items] = await Promise.all([
+      skipQuery.exec(),
+    ]);
+
+    return new Find({items});
   }
   async create(data: Partial<Category>): Promise<Category>{
     return await this.categoryModel.create({

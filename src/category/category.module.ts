@@ -5,8 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from './schemas/category.schema';
 import CategoryTokens from './category.tokens';
 import CreateCategoryUseCase from './usecases/create.category.usecase';
-import { CategoryRepository } from './category.repository';
+
 import GetCategoryUsecase from './usecases/get.category.usecase';
+import CategoryRepository from './category.repository';
 
 
 @Module({

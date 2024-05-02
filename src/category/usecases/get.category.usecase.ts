@@ -16,7 +16,7 @@ export default class GetCategoryUsecase implements IUseCase<GetCategoryUsecaseIn
     ){}
 
     async run(input:GetCategoryUsecaseInput):Promise<GetCategoryUseCaseOutput>{
-        const queryResponse = await this.categoryRepository.find
+        const queryResponse = await this.categoryRepository.find()
         const categoryResponseList:CategoryResponse[]=[];
 
         for (const currentCategory of queryResponse.items){

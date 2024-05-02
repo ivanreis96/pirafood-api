@@ -20,7 +20,7 @@ export default class CategoryRepository implements ICategoryRepository {
     });
   }
 
-  async get(): Promise<Find> {
+  async find(): Promise<Find> {
     let query = this.categoryModel.find()
     const skipQuery =query.clone()
     const [items] = await Promise.all([

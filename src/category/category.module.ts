@@ -7,6 +7,7 @@ import CategoryTokens from './category.tokens';
 import CreateCategoryUseCase from './usecases/create.category.usecase';
 import CategoryRepository from './category.repository';
 import GetCategoryUsecase from './usecases/get.category.usecase';
+import UpdateCategoryDetailsUsecase from './usecases/update.category.details.usecase';
 
 
 @Module({
@@ -21,6 +22,10 @@ import GetCategoryUsecase from './usecases/get.category.usecase';
     {
       provide:CategoryTokens.getCategoryUseCase,
       useClass:GetCategoryUsecase
+    },
+    {
+      provide:CategoryTokens.updateCategoryDatailsUseCase,
+      useClass:UpdateCategoryDetailsUsecase,
     },
     {
       provide:CategoryTokens.categoryRepository,

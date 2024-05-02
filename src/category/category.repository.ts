@@ -20,6 +20,10 @@ export default class CategoryController implements ICategoryRepository {
     });
   }
 
+  async get(): Promise<Category>{
+      return await this.categoryModel.findOne()
+  }
+
   async find(): Promise<Find> {
     let query = this.categoryModel.find()
     const skipQuery =query.clone()

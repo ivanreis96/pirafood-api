@@ -5,7 +5,6 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { skip } from 'node:test';
 import Find from './usecases/dtos/find.by.filter';
-import GetCategoryUseCaseOutput from './usecases/dtos/get.category.usecase.output';
 
 @Injectable()
 export default class CategoryController implements ICategoryRepository {
@@ -13,9 +12,6 @@ export default class CategoryController implements ICategoryRepository {
     @InjectModel(Category.name)
     private readonly categoryModel: Model<Category>,
   ) {}
-  get(data?: Partial<Category>): Promise<GetCategoryUseCaseOutput> {
-    throw new Error('Method not implemented.');
-  }
 
   async update(data: Category): Promise<void> {
     await this.categoryModel.updateOne(null, {

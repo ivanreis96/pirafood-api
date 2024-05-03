@@ -1,13 +1,12 @@
-import { Body, Controller, Inject, Post, Query,Get, Put } from '@nestjs/common';
+import { Body, Controller, Inject, Post, Query,Get, Put, Param, BadRequestException } from '@nestjs/common';
 import { IUseCase } from 'src/domain/iusecase.interface';
 import CreateCategoryUseCaseInput from './usecases/dtos/create.category.usecase.input';
 import CreateCategoryUseCaseOutput from './usecases/dtos/create.category.usecase.output';
 import CategoryTokens from './category.tokens';
 import GetCategoryUsecaseInput from './usecases/dtos/get.category.usecase.input';
 import GetCategoryUseCaseOutput from './usecases/dtos/get.category.usecase.output';
-import UpdateCategoryControllerInput from './dtos/update.category.controller.input';
-import UpdateCategoryDetailsUseCaseOutput from './usecases/dtos/update.category.usecase.output';
-import UpdateCategoryDetailsUseCaseInput from './usecases/dtos/update.category.usecase.input';
+import GetCategoryByIdUseCaseInput from './usecases/dtos/get.category.by.id.usecase.input';
+import GetCategoryByIdUseCaseOutput from './usecases/dtos/get.category.by.id.usecase.output';
 
 @Controller('category')
 export class CategoryController {
@@ -16,10 +15,10 @@ export class CategoryController {
     private readonly createCategoryUseCase: IUseCase<CreateCategoryUseCaseInput, CreateCategoryUseCaseOutput>
 
     @Inject(CategoryTokens.getCategoryUseCase)
-    private readonly getCategoryUseCase:IUseCase<GetCategoryUsecaseInput,GetCategoryUseCaseOutput>
+    private readonly getCategoryUseCase:IUseCase<GetCategoryUsecaseInput, GetCategoryUseCaseOutput>
 
-    @Inject(CategoryTokens.updateCategoryDatailsUseCase)
-    private readonly updateCategoryDatailsUseCase:IUseCase<UpdateCategoryDetailsUseCaseInput, UpdateCategoryDetailsUseCaseOutput>
+    @Inject(CategoryTokens.getCategoryByIdUseCase)
+    private readonly getCategoryByIdUseCase:IUseCase<GetCategoryByIdUseCaseInput, GetCategoryUseCaseOutput>
     
 
     @Get()
@@ -32,18 +31,24 @@ export class CategoryController {
         return await this.getCategoryUseCase.run(useCaseInput)
     }
 
+    @Get(':id')    
+    async getCategoryById(@Param('id') id: string): Promise<GetCategoryByIdUseCaseOutput>{
+        try {
+            const useCaseInput = new GetCategoryByIdUseCaseInput({ id })
+            return await this.getCategoryByIdUseCase.run(useCaseInput)
+            
+        } catch (error) {   
+            throw new BadRequestException(JSON.parse(error.message))            
+        }
 
+    }
+    
     @Post()
     async createCategory(@Body() input: CreateCategoryUseCaseInput): Promise<CreateCategoryUseCaseOutput>{
         const useCaseInput = new CreateCategoryUseCaseInput({ ...input})
         return await this.createCategoryUseCase.run(useCaseInput)
     }
 
-    @Put()
-    async updateCategoryDetails(@Body() input: UpdateCategoryControllerInput) :Promise<UpdateCategoryDetailsUseCaseOutput>{
-        const useCaseInput = new UpdateCategoryDetailsUseCaseInput({...input});
-        return await this.updateCategoryDatailsUseCase.run(useCaseInput)
-    }
 
     
 }

@@ -1,7 +1,7 @@
-export default class GetCategoryUsecaseInput{
+export default class GetCategoryUseCaseInput{
     name?:string
 
-    constructor(data:Partial<GetCategoryUsecaseInput>){
+    constructor(data:Partial<GetCategoryUseCaseInput>){
         Object.assign(this,data)
     }
 }

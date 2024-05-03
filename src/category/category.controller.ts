@@ -7,6 +7,7 @@ import GetCategoryUsecaseInput from './usecases/dtos/get.category.usecase.input'
 import GetCategoryUseCaseOutput from './usecases/dtos/get.category.usecase.output';
 import GetCategoryByIdUseCaseInput from './usecases/dtos/get.category.by.id.usecase.input';
 import GetCategoryByIdUseCaseOutput from './usecases/dtos/get.category.by.id.usecase.output';
+import GetCategoryUseCaseInput from './usecases/dtos/get.category.usecase.input';
 
 @Controller('category')
 export class CategoryController {
@@ -15,7 +16,7 @@ export class CategoryController {
     private readonly createCategoryUseCase: IUseCase<CreateCategoryUseCaseInput, CreateCategoryUseCaseOutput>
 
     @Inject(CategoryTokens.getCategoryUseCase)
-    private readonly getCategoryUseCase:IUseCase<GetCategoryUsecaseInput, GetCategoryUseCaseOutput>
+    private readonly getCategoryUseCase:IUseCase<GetCategoryUseCaseInput, GetCategoryUseCaseOutput>
 
     @Inject(CategoryTokens.getCategoryByIdUseCase)
     private readonly getCategoryByIdUseCase:IUseCase<GetCategoryByIdUseCaseInput, GetCategoryUseCaseOutput>
@@ -25,7 +26,7 @@ export class CategoryController {
     async getCategory(
         @Query('name') type?:string
     ):Promise<GetCategoryUseCaseOutput>{
-        const useCaseInput = new GetCategoryUsecaseInput({
+        const useCaseInput = new GetCategoryUseCaseInput({
             name: !!type ? type :null,
         })
         return await this.getCategoryUseCase.run(useCaseInput)

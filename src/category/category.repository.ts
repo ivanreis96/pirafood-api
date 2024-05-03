@@ -21,7 +21,7 @@ export default class CategoryController implements ICategoryRepository {
   }
 
   async getById(id: string): Promise<Category>{
-      return await this.categoryModel.findById(id)
+      return await this.categoryModel.findOne(id)
   }
 
   async find(): Promise<Find> {

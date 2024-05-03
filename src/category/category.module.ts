@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { CategoryController } from './category.controller';
-import { Mongoose } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from './schemas/category.schema';
 import CategoryTokens from './category.tokens';
 import CreateCategoryUseCase from './usecases/create.category.usecase';
 import CategoryRepository from './category.repository';
 import GetCategoryUsecase from './usecases/get.category.usecase';
-import UpdateCategoryDetailsUsecase from './usecases/_update.category.by.id.usecase';
+import UpdateCategoryDetailsUsecase from './usecases/update.category.by.id.usecase';
 import GetCategoryByIdUseCase from './usecases/get.category.by.id.usecase';
 
 
@@ -39,4 +38,5 @@ import GetCategoryByIdUseCase from './usecases/get.category.by.id.usecase';
   
   ]
 })
+
 export class CategoryModule {}

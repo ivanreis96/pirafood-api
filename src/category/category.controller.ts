@@ -3,11 +3,13 @@ import { IUseCase } from 'src/domain/iusecase.interface';
 import CreateCategoryUseCaseInput from './usecases/dtos/create.category.usecase.input';
 import CreateCategoryUseCaseOutput from './usecases/dtos/create.category.usecase.output';
 import CategoryTokens from './category.tokens';
-import GetCategoryUsecaseInput from './usecases/dtos/get.category.usecase.input';
 import GetCategoryUseCaseOutput from './usecases/dtos/get.category.usecase.output';
 import GetCategoryByIdUseCaseInput from './usecases/dtos/get.category.by.id.usecase.input';
 import GetCategoryByIdUseCaseOutput from './usecases/dtos/get.category.by.id.usecase.output';
 import GetCategoryUseCaseInput from './usecases/dtos/get.category.usecase.input';
+import UpdateCategoryByIdUseCaseInput from './usecases/dtos/update.category.by.id.usecase.input';
+import UpdateCategoryByIdUseCaseOutput from './usecases/dtos/update.category.by.id.usecase.output';
+import UpdateCategoryControllerInput from './dtos/update.category.controller.input';
 
 @Controller('category')
 export class CategoryController {
@@ -19,8 +21,11 @@ export class CategoryController {
     private readonly getCategoryUseCase:IUseCase<GetCategoryUseCaseInput, GetCategoryUseCaseOutput>
 
     @Inject(CategoryTokens.getCategoryByIdUseCase)
-    private readonly getCategoryByIdUseCase:IUseCase<GetCategoryByIdUseCaseInput, GetCategoryUseCaseOutput>
+    private readonly getCategoryByIdUseCase:IUseCase<GetCategoryByIdUseCaseInput, GetCategoryByIdUseCaseOutput>
     
+    @Inject(CategoryTokens.updateCategoryByIdUseCase)
+    private readonly updateCategoryByIdUseCase:IUseCase<UpdateCategoryByIdUseCaseInput, UpdateCategoryByIdUseCaseOutput>
+
 
     @Get()
     async getCategory(
@@ -41,15 +46,25 @@ export class CategoryController {
         } catch (error) {   
             throw new BadRequestException(JSON.parse(error.message))            
         }
+    }
 
+    @Put(':id')
+    async updateCategory(@Body() input: UpdateCategoryControllerInput, @Param('id') id: string): Promise<UpdateCategoryByIdUseCaseOutput>{
+        try {
+            const useCaseInput = new UpdateCategoryByIdUseCaseInput({
+                ...input,
+                id
+            })
+
+            return await this.updateCategoryByIdUseCase.run(useCaseInput)
+        } catch (error) {
+            throw new BadRequestException(JSON.parse(error.message))
+        }
     }
     
     @Post()
     async createCategory(@Body() input: CreateCategoryUseCaseInput): Promise<CreateCategoryUseCaseOutput>{
         const useCaseInput = new CreateCategoryUseCaseInput({ ...input})
         return await this.createCategoryUseCase.run(useCaseInput)
-    }
-
-
-    
+    }    
 }

@@ -4,10 +4,12 @@ import UpdateCategoryByIdUseCaseOutput from "./dtos/get.category.by.id.usecase.o
 import CategoryTokens from "../category.tokens";
 import ICategoryRepository from "../interfaces/category.repository.interface";
 import { Inject, Injectable } from "@nestjs/common";
+import { Category } from "../schemas/category.schema";
+import CategoryNotFoundError from "src/domain/errors/category.not.found.error";
 
 @Injectable()
 
-export default class UpdateCategoryByIdUsecase implements IUseCase<UpdateCategoryByIdUseCaseInput, UpdateCategoryByIdUseCaseOutput>{
+export default class UpdateCategoryByIdUseCase implements IUseCase<UpdateCategoryByIdUseCaseInput, UpdateCategoryByIdUseCaseOutput>{
     
     constructor(
         @Inject(CategoryTokens.categoryRepository)
@@ -16,16 +18,32 @@ export default class UpdateCategoryByIdUsecase implements IUseCase<UpdateCategor
 
     async run(input: UpdateCategoryByIdUseCaseInput): Promise<UpdateCategoryByIdUseCaseOutput> {
         
-        // await this.categoryRepository.update(input)
+        let category = await this.getCategoryById(input.id)
 
-        // const category = await this.categoryRepository.geCategorytById()
+        if(!category){
+            throw new CategoryNotFoundError()
+        }
 
-        // return new UpdateCategoryByIdUseCaseOutput({
-        //     name: category.name,
-        //     updatedAt: category.updatedAt,
-        //     createdAt: category.createdAt
-        // })
-        return null
+        await this.categoryRepository.updateById({
+            ...input,
+            _id: input.id
+        })
+
+
+        return new UpdateCategoryByIdUseCaseOutput({
+            id : category._id,
+            name : category.name,
+            updatedAt : category.updatedAt,
+            createdAt : category.createdAt,
+        })      
     }
     
+    private async getCategoryById(id: string): Promise<Category>
+    {
+        try {
+            return await this.categoryRepository.getById(id)
+        } catch (error) {
+            return null
+        }
+    }
 }

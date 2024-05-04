@@ -6,8 +6,8 @@ import CategoryTokens from './category.tokens';
 import CreateCategoryUseCase from './usecases/create.category.usecase';
 import CategoryRepository from './category.repository';
 import GetCategoryUsecase from './usecases/get.category.usecase';
-import UpdateCategoryDetailsUsecase from './usecases/update.category.by.id.usecase';
 import GetCategoryByIdUseCase from './usecases/get.category.by.id.usecase';
+import UpdateCategoryByIdUseCase from './usecases/update.category.by.id.usecase';
 
 
 @Module({
@@ -28,8 +28,8 @@ import GetCategoryByIdUseCase from './usecases/get.category.by.id.usecase';
       useClass:GetCategoryByIdUseCase
     },
     {
-      provide:CategoryTokens.updateCategoryDatailsUseCase,
-      useClass:UpdateCategoryDetailsUsecase,
+      provide:CategoryTokens.updateCategoryByIdUseCase,
+      useClass:UpdateCategoryByIdUseCase,
     },
     {
       provide:CategoryTokens.categoryRepository,

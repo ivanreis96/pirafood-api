@@ -13,11 +13,16 @@ export default class CategoryController implements ICategoryRepository {
     private readonly categoryModel: Model<Category>,
   ) {}
 
-  async update(data: Category): Promise<void> {
-    await this.categoryModel.updateOne(null, {
-      ...data,
-      updateAt: new Date(),
-    });
+  async updateById(data: Partial<Category>): Promise<void> {
+    await this.categoryModel.updateOne(
+      {
+        _ud: data._id,
+      },
+      {
+        ...data,
+        updatedAt: new Date()
+      }
+    )
   }
 
   async getById(id: string): Promise<Category>{

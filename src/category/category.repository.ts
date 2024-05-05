@@ -16,7 +16,7 @@ export default class CategoryController implements ICategoryRepository {
   async updateById(data: Partial<Category>): Promise<void> {
     await this.categoryModel.updateOne(
       {
-        _ud: data._id,
+        _id: data._id,
       },
       {
         ...data,

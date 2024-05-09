@@ -2,6 +2,7 @@ export default class CategoryTokens{
 
     static createCategoryUseCase = 'createCategoryUseCase'
     static getCategoryUseCase = 'getCategoryUseCase';
-    static updateCategotyUseCase = 'updateCategotyUseCase';
-    static categoryRepository ='categoryRepository'
+    static getCategoryByIdUseCase = 'getCategoryByIdUseCase';
+    static updateCategoryByIdUseCase = 'updateCategoryByIdUseCase';
+    static categoryRepository ='categoryRepository';
 }

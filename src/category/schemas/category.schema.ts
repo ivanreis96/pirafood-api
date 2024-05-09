@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { prototype } from 'events';
 import mongoose, { HydratedDocument } from "mongoose";
 
 
@@ -10,7 +9,6 @@ export class Category {
 
     @Prop({required:true, auto:true, type: mongoose.Schema.Types.ObjectId})
     _id:string
-
     @Prop({ required:true})
     name:string
     @Prop({ required: true })
